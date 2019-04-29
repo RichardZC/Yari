@@ -1,0 +1,216 @@
+﻿<div class="row">
+    <div class="col l8">
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="input-field">
+                            <i class="material-icons prefix">search</i>
+                            <input v-model="search" v-on:keyup.13="filtrar()" type="search" class="validate"
+                                   id="txtsearch" placeholder="Busca tu útiles escolares" style="border-bottom: 1px solid blue !important;" autofocus />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6 m3" v-for="item in itemsFilters">
+                <div class="card blue darken-3">
+                    <div class="card-image">
+                        <img src="~/img/articulo/1.jpg" />
+                        <span class="card-title blue  " style="padding:2px"><b>S/ {{item.Venta}}</b></span>
+
+                        <a v-on:click="AgregarLista(item)" class="btn-floating halfway-fab waves-effect waves-light red" style="bottom:5px;right:5px">
+                            <i class="material-icons">shopping_cart</i>
+                        </a>
+                    </div>
+                    <div class="card-content white-text" style="font-size:small; height:50px;padding:5px">
+                        <p>
+                            {{item.Nombre}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div v-show="itemsFilters.length === 0">
+                <p class="center"><b>0 Artículos encontrados</b></p>
+            </div>
+        </div>
+    </div>
+    <div class="col l4">
+        <div class="card">
+            <div class="card-content">
+                <h5>TU LISTA</h5>
+                <div class="divider"></div>
+                <table class="table bordered Highlight responsive-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Cant</th>
+                            <th>Articulo</th>
+                            <th style="width:40px">PU</th>
+                            <th class="center">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(i,index) in lista" style="font-size:small">
+                            <td class="center" style="width:40px"><a href="#" v-on:click="Eliminar(index)"><i class="material-icons">clear</i></a></td>
+                            <td style="width:35px; margin:0px;padding:0px; padding-right:20px">
+                                <div class="input-field" style="margin:0px;padding:0px">
+                                    <input v-model="i.Cantidad" class="center" type="number" style="margin:0px;margin:0px">
+                                </div>
+                            </td>
+                            <td>{{i.Nombre}}</td>
+                            <td>{{i.Precio | Numero}}</td>
+                            <td class="center" >{{i.Cantidad * i.Precio | Numero}}</td>
+                        </tr>
+                        <tr v-show="lista.length === 0">
+                            <td colspan="5" class="center"><b>Tu pedido esta Vacía</b></td>
+                        </tr>
+                        <tr v-show="lista.length > 0">
+                            <td></td>
+                            <td></td>
+                            <td colspan="2" class="center"><b>Total Venta</b></td>
+                            <td class="center"><b>S/ {{Total | Numero}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row" v-show="lista.length > 0">
+                    <div class="input-field col s4 m3 ">
+                        <input id="txtNumeroDoc" type="text" v-model="numeroDoc" v-on:keyup.13="BuscarCliente()" placeholder="DNI">
+                        <label for="txtNumeroDoc">*DNI</label>
+                    </div>
+                    <div class="input-field col s2 m1 " style="padding-left:0">
+                         <a v-on:click="BuscarCliente()" class="btn-floating btn-small blue darken-3"><i class="material-icons">search</i></a>
+                    </div>
+                    <div class="input-field col s6 m8 ">
+                        <input id="txtCliente" type="text" v-model="cliente" readonly>
+                     </div>
+                    <div class="input-field col s12 ">
+                        <input id="txtCelular" type="text" placeholder="Celular para contactarte">
+                        <label for="txtCelular">*Celular</label>
+                    </div>
+                    <div class="input-field col s12 ">
+                        <input id="txtDireccion" type="text" placeholder="Dirección de envio">
+                        <label for="txtDireccion">*Dirección</label>
+                    </div>
+                    <div class="input-field col s12 ">
+                        <a v-on:click="Limpiar()" class="btn blue-grey btn-small"><i class="material-icons left">border_bottom</i> LIMPIAR</a>
+                        <a class="btn right" v-on:click="Guardar()"><i class="material-icons left">shopping_cart</i> Hacer Pedido</a>
+                    </div>
+                    (*) Campos Obligatorios
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var vapp = new Vue({
+            el: 'main',
+            data: {
+                items: [],
+                itemsFilters: [],
+                search: '',
+                lista: [],
+                numeroDoc: "",
+                cliente: "",
+                venta: { Tipo: 'V' },
+            },
+            mounted: function () {
+                axios.get('@Url.Action("ListarArticulo", "Home")', {})
+                    .then(r => {
+                        this.items = r.data;
+                        this.filtrar();
+                    });
+            },
+            methods: {
+                filtrar: function () {
+                    this.itemsFilters = this.items.filter((a) => {
+                        if (this.searchArray.length == 1) {
+                            return a.Nombre.match(this.searchArray[0])
+                        } else if (this.searchArray.length == 2) {
+                            return (a.Nombre.match(this.searchArray[0])
+                                && a.Nombre.match(this.searchArray[1]))
+                        } else if (this.searchArray.length == 3) {
+                            return (a.Nombre.match(this.searchArray[0])
+                                && a.Nombre.match(this.searchArray[1])
+                                && a.Nombre.match(this.searchArray[2]))
+                        } else if (this.searchArray.length == 4) {
+                            return (a.Nombre.match(this.searchArray[0])
+                                && a.Nombre.match(this.searchArray[1])
+                                && a.Nombre.match(this.searchArray[2])
+                                && a.Nombre.match(this.searchArray[3]))
+                        }
+                    });
+                },
+                AgregarLista: function (itemAdd) {
+                    var found = false;
+                    this.lista.forEach(itemLista => {
+                        if (itemLista.ArticuloId === itemAdd.Id) {
+                            found = true;
+                            itemLista.Cantidad += 1;
+                        }
+                    });
+                    if (found === false) {
+                        this.lista.push({ ArticuloId: itemAdd.Id, Cantidad: 1, Nombre: itemAdd.Nombre, Precio: itemAdd.Venta });
+                    }
+                    M.toast({ html: 'Agregado a tu Lista!' })
+                    this.search = '';
+                    document.getElementById('txtsearch').focus();
+
+                },
+                BuscarCliente: function () {
+                    axios.get('@Url.Action("ObtenerPersonaDocumento","Comun")/' + this.numeroDoc, {})
+                        .then(r => {
+                            if (r.data) {
+                                this.venta.ClienteId = r.data.Id;
+                                this.cliente = r.data.NombreCompleto;
+                                document.getElementById('txtCelular').focus();
+                            }
+                            else {
+                                axios.get('https://py-devs.com/api/dni/' + this.numeroDoc + "/?format=json", {})
+                                    .then(r => {
+                                        var per = {
+                                            TipoDocumento: "DNI",
+                                            NumDocumento: this.numeroDoc,
+                                            IndCliente: true,
+                                            Apellidos: r.data.ape_paterno + " " + r.data.ape_materno,
+                                            Nombres: r.data.nombres,
+                                            NombreCompleto: r.data.ape_paterno + " " + r.data.ape_materno + " " + r.data.nombres
+                                        }
+                                        axios.post('@Url.Action("GuardarPersona", "Comun")', { p: per })
+                                            .then((r) => {
+                                                this.venta.ClienteId = r.data;
+                                            });
+                                        this.cliente = r.data.ape_paterno + " " + r.data.ape_materno + " " + r.data.nombres;
+                                        document.getElementById('txtCelular').focus();
+                                    }).catch(ex => { M.toast({html:"DNI no existe"}); this.numeroDoc = ""; this.cliente="" });
+                            }
+                        });
+                }
+            },
+            computed: {
+                searchArray: function () {
+                    return this.search.toUpperCase().trim().split(' ');
+                },
+                Total: function () {
+                    var total = 0;
+                    this.lista.forEach(item => {
+                        total += (item.Precio * item.Cantidad);
+                    });
+                    return total;
+                },
+            },
+            filters: {
+                Fecha: function (date) {
+                    return moment(date).format('DD/MM/YYYY h:mm:ss a');
+                },
+                Numero: function (n) {
+                    return n.toFixed(2);
+                }
+            },
+        });
+    </script>
+}

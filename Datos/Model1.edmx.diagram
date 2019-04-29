@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bbe5b833c3f6469dab66e1dab334040f" Name="Diagram1">
+        <EntityTypeShape EntityType="YARIModel.Articulo" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="YARIModel.Categoria" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="YARIModel.Ingreso" Width="1.5" PointX="3" PointY="10.75" />
+        <EntityTypeShape EntityType="YARIModel.IngresoDetalle" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="YARIModel.Marca" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="YARIModel.Persona" Width="1.5" PointX="0.75" PointY="12.125" />
+        <EntityTypeShape EntityType="YARIModel.Usuario" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="YARIModel.Venta" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="YARIModel.VentaDetalle" Width="1.5" PointX="8.25" PointY="5" />
+        <AssociationConnector Association="YARIModel.FK__Articulo__Catego__6477ECF3" />
+        <AssociationConnector Association="YARIModel.FK__Articulo__MarcaI__656C112C" />
+        <AssociationConnector Association="YARIModel.FK__IngresoDe__Artic__05D8E0BE" />
+        <AssociationConnector Association="YARIModel.FK__VentaDeta__Artic__797309D9" />
+        <AssociationConnector Association="YARIModel.FK__Ingreso__Proveed__00200768" />
+        <AssociationConnector Association="YARIModel.FK__Ingreso__Usuario__01142BA1" />
+        <AssociationConnector Association="YARIModel.FK__IngresoDe__Ingre__04E4BC85" />
+        <AssociationConnector Association="YARIModel.FK__Venta__ClienteId__73BA3083" />
+        <AssociationConnector Association="YARIModel.FK__Venta__UsuarioId__74AE54BC" />
+        <AssociationConnector Association="YARIModel.FK__VentaDeta__Venta__787EE5A0" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

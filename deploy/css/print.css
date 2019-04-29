@@ -1,0 +1,15 @@
+﻿header, footer, nav, aside {
+    display: none;
+}
+
+#main {
+    padding:0px;
+}
+
+.noprint {
+    display: none;
+}
+
+body {
+    font-size: 12px;
+}

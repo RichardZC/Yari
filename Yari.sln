@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{7159FE32-9224-4E4A-948B-7D35AA04C520}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj", "{DE197B61-EF2B-4E6E-8345-6361A2F5308D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{24943305-F112-4B1A-BF8D-4EC8CB150601}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "materialize-admin-template", "materialize-admin-template\", "{F9475069-0AE6-4C2D-94E3-81BF6C7118CC}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_31124"
+		Debug.AspNetCompiler.PhysicalPath = "materialize-admin-template\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_31124\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_31124"
+		Release.AspNetCompiler.PhysicalPath = "materialize-admin-template\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_31124\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "31124"
+		SlnRelativePath = "materialize-admin-template\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internet", "Internet\Internet.csproj", "{000A9AA1-2DCC-42D5-9512-A49947CA4056}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7159FE32-9224-4E4A-948B-7D35AA04C520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7159FE32-9224-4E4A-948B-7D35AA04C520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7159FE32-9224-4E4A-948B-7D35AA04C520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7159FE32-9224-4E4A-948B-7D35AA04C520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE197B61-EF2B-4E6E-8345-6361A2F5308D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE197B61-EF2B-4E6E-8345-6361A2F5308D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE197B61-EF2B-4E6E-8345-6361A2F5308D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE197B61-EF2B-4E6E-8345-6361A2F5308D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24943305-F112-4B1A-BF8D-4EC8CB150601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24943305-F112-4B1A-BF8D-4EC8CB150601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24943305-F112-4B1A-BF8D-4EC8CB150601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24943305-F112-4B1A-BF8D-4EC8CB150601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9475069-0AE6-4C2D-94E3-81BF6C7118CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9475069-0AE6-4C2D-94E3-81BF6C7118CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9475069-0AE6-4C2D-94E3-81BF6C7118CC}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9475069-0AE6-4C2D-94E3-81BF6C7118CC}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{000A9AA1-2DCC-42D5-9512-A49947CA4056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{000A9AA1-2DCC-42D5-9512-A49947CA4056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{000A9AA1-2DCC-42D5-9512-A49947CA4056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{000A9AA1-2DCC-42D5-9512-A49947CA4056}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A22ACB5F-244C-4B41-9EB5-B38912D41FA3}
+	EndGlobalSection
+EndGlobal
