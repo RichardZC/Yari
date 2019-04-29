@@ -15,6 +15,8 @@ namespace Web.Controllers
         {
             return View();
         }
+        //otro cambio
+        // otro cambio
         public ActionResult Buscar(string id)
         {
             return Json(Negocio.ArticuloBL.Listar(x => x.Nombre.Contains(id) || x.Codigo.Contains(id)), JsonRequestBehavior.AllowGet);
