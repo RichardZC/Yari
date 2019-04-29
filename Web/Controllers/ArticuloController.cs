@@ -10,12 +10,12 @@ namespace Web.Controllers
 {
     public class ArticuloController : Controller
     {
-        //cambie algo en el codigo
+        //aaa
         public ActionResult Index()
         {
             return View();
         }
-        //otro cambio
+        //bbbb
         // otro cambio
         public ActionResult Buscar(string id)
         {
