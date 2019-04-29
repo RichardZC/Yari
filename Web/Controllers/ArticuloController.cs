@@ -10,7 +10,7 @@ namespace Web.Controllers
 {
     public class ArticuloController : Controller
     {
-        
+        //nuevo cambio
         public ActionResult Index()
         {
             return View();
