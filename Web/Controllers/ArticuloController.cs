@@ -11,6 +11,7 @@ namespace Web.Controllers
     public class ArticuloController : Controller
     {
         //cambie algo en el codigo
+        //otro
         public ActionResult Index()
         {
             return View();
