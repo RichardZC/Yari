@@ -105,7 +105,6 @@
                             <th></th>
                             <th>Cliente</th>
                             <th>Fecha</th>
-                            <th>Serie</th>
                             <th>Numero</th>
                             <th>Total</th>
                             <th>Estado</th>
@@ -113,18 +112,18 @@
                     </thead>
                     <tbody>
                         <tr v-for="(i,index) in ventas">
-                            <td class="center" style="width:40px">
+                            <td class="center" style="width:40px;font-size:small;padding:0;margin:0">
                                 <a :href="'@Url.Action("Comprobante","Venta")' +'/'+i.Id" target="_blank"><i class="material-icons">print</i></a>
                             </td>
-                            <td>{{i.Cliente}}</td>
-                            <td>{{i.Fecha | Fecha}}</td>
-                            <td>{{i.Serie}}</td>
-                            <td><a href="#" v-on:click="EditarVenta(i.Id)">{{i.Numero }}</a> </td>
-                            <td>S/ {{i.Total | Numero}}</td>
-                            <td class="left">
-                                <span v-if="i.Estado=='P'" class="new badge blue" data-badge-caption="Pagado"></span>
-                                <span v-if="i.Estado=='N'" class="new badge orange" data-badge-caption="No Pagado"></span>
-                                <span v-if="i.Estado=='X'" class="new badge red" data-badge-caption="Anulado"></span>
+                            <td style="font-size:small;padding:0;margin:0">{{i.Cliente}}</td>
+                            <td style="font-size:small;padding:0;margin:0">{{i.Fecha | Fecha}}</td>
+                            <td style="font-size:small;padding:0;margin:0"><a href="#" v-on:click="EditarVenta(i.Id)">{{i.Serie}}-{{i.Numero }}</a> </td>
+                            <td style="font-size:small;padding:0;margin:0">S/ {{i.Total | Numero}}</td>
+                            <td class="left" style="font-size:small;padding:0;margin:0">
+                                <a v-if="i.Estado=='P'" href="#" v-on:click="AnularVenta(i)"><span class="new badge red" data-badge-caption="x"></span></a>
+                                <span v-if="i.Estado=='P'" class="new badge blue" data-badge-caption="Pag"></span>
+                                <span v-if="i.Estado=='N'" class="new badge orange" data-badge-caption="Pen"></span>
+                                <span v-if="i.Estado=='X'" class="new badge red" data-badge-caption="Anul"></span>
                             </td>
                         </tr>
                     </tbody>
@@ -139,10 +138,7 @@
 
 @section scripts{
     <script>
-        //function SeleccionarArticulo(id) {
-        //    vapp.Agregar(id);
-        //    $("#autocompletar").val("").focus();
-        //}
+
         var vapp = new Vue({
             el: '#content',
             data: {
@@ -192,6 +188,26 @@
                     axios.get('@Url.Action("ObtenerVentaDetalle", "Venta")/' + id , {})
                         .then(r => {
                         this.items = r.data;
+                    });
+                },
+                AnularVenta: function (venta) {
+                    Swal.fire({
+                        title: 'Estas tu seguro?',
+                        text: "Esto Anulará la orden de venta!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, Anular Orden Venta',
+                        cancelButtonText: 'No'
+                    }).then((result) => {
+                        if (result.value) {
+                            axios.post('@Url.Action("AnularVenta", "Venta")', { id: venta.Id })
+                                .then((r) => {
+                                    venta.Estado = "X";
+                                    fn.mensaje("Venta Anulada!");
+                                });
+                        }
                     });
                 },
                 Guardar: function () {

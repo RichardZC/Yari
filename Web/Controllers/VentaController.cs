@@ -18,7 +18,7 @@ namespace Web.Controllers
         public JsonResult ObtenerVentaDetalle(int id)
         {
             return Json(
-                VentaDetalleBL.Listar(x=>x.VentaId==id
+                VentaDetalleBL.Listar(x => x.VentaId == id
             , includeProperties: "Articulo")
             .Select(x => new
             {
@@ -84,8 +84,12 @@ namespace Web.Controllers
             }).ToList()
             , JsonRequestBehavior.AllowGet);
         }
-        //public JsonResult ListarVentaDetalle(int id) {
-        //    return Json(VentaBL.Listar(x=>x.Id==id, includeProperties:"VentaDetalle"), JsonRequestBehavior.AllowGet);
-        //}
+
+        [HttpPost]
+        public JsonResult AnularVenta(int id)
+        {
+            VentaBL.ActualizarParcial(new Venta { Id = id, Estado = "X" }, x => x.Estado);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
 }

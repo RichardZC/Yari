@@ -9,15 +9,12 @@ using System.Web.Mvc;
 namespace Web.Controllers
 {
     public class ArticuloController : Controller
-    {
-        //cambie algo en el codigo
-        //otro
+    {        
         public ActionResult Index()
         {
             return View();
         }
-        //ccccc
-        // otro cambio
+       
         public ActionResult Buscar(string id)
         {
             return Json(Negocio.ArticuloBL.Listar(x => x.Nombre.Contains(id) || x.Codigo.Contains(id)), JsonRequestBehavior.AllowGet);
