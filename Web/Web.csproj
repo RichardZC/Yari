@@ -222,6 +222,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Venta\Comprobante.cshtml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>

@@ -17,11 +17,27 @@ namespace Web.Controllers
        
         public ActionResult Buscar(string id)
         {
-            return Json(Negocio.ArticuloBL.Listar(x => x.Nombre.Contains(id) || x.Codigo.Contains(id)), JsonRequestBehavior.AllowGet);
+            var lista = ArticuloBL.Listar(x => x.Nombre.Contains(id) || x.Codigo.Contains(id),
+                includeProperties: "Marca,Categoria");
+            return Json(lista.Select(x => new
+            {
+                x.Id,
+                x.CategoriaId,
+                x.MarcaId,
+                x.Nombre,
+                x.Stock,
+                x.StockMin,
+                x.Codigo,
+                x.Costo,
+                x.Venta,
+                x.Activo,
+                NombreMarca = x.Marca.Nombre,
+                NombreCategoria = x.Categoria.Nombre
+            }).ToList(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult ListarTodo()
         {
-            return Json(Negocio.ArticuloBL.Listar(), JsonRequestBehavior.AllowGet);
+            return Json(ArticuloBL.Listar(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult ListarMarca()
         {

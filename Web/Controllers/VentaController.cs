@@ -91,5 +91,19 @@ namespace Web.Controllers
             VentaBL.ActualizarParcial(new Venta { Id = id, Estado = "X" }, x => x.Estado);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult NuevoCliente(Persona pCliente)
+        {
+            pCliente.TipoDocumento = "DNI";
+            pCliente.Nombres = pCliente.Nombres.ToUpper();
+            pCliente.Apellidos = pCliente.Apellidos.ToUpper();
+            pCliente.NombreCompleto = pCliente.Apellidos + " " + pCliente.Nombres;
+            pCliente.Direccion = pCliente.Direccion.ToUpper();
+            pCliente.IndCliente = true;
+            pCliente.IndProveedor = false;
+            PersonaBL.Crear(pCliente);
+            return Json(pCliente, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

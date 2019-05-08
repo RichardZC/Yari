@@ -78,11 +78,11 @@
                         </select>
                     </div>
                     <div class="input-field col s6 m3 ">
-                        <input id="txtNumeroDoc" type="text" v-model="numeroDoc" v-on:keyup.13="BuscarCliente()" placeholder="DNI">
+                        <input id="txtNumeroDoc" type="text" v-model="numeroDoc" v-on:keyup.13="BuscarCliente()" placeholder="DNI <ENTER>" maxlength="8" min="8">
                         <label for="txtNumeroDoc">DNI</label>
                     </div>
                     <div class="input-field col s6 m6 ">
-                        <input id="txtCliente" type="text" v-model="cliente" placeholder="Cliente">
+                        <input id="txtCliente" type="text" v-model="cliente" placeholder="Cliente" readonly>
                         <label for="txtCliente">Cliente</label>
                     </div>
                     <div class="input-field col s12 ">
@@ -132,7 +132,43 @@
         </div>
     </div>
 </div>
-
+<div id="modalCliente" class="modal modal-fixed-footer">
+    <form  v-on:submit.prevent="NuevoCliente()">
+        <div class="modal-content">
+            <div class="row">
+                <h5>Agregar Cliente</h5>
+                <hr />
+                <div class="input-field col s6 m2 ">
+                    <input id="txtNumeroDoc1" type="text" placeholder="DNI" v-model="nuevoCliente.NumDocumento" maxlength="8" min="8" required>
+                    <label for="txtNumeroDoc1">DNI*</label>
+                </div>
+                <div class="input-field col s5 ">
+                    <input id="txtApellidos1" type="text" v-model="nuevoCliente.Apellidos" placeholder="Apellidos" required>
+                    <label for="txtApellidos1">Apellidos*</label>
+                </div>
+                <div class="input-field col s5 ">
+                    <input id="txtNombres1" type="text" v-model="nuevoCliente.Nombres" placeholder="Nombres" required>
+                    <label for="txtNombres1">Nombres*</label>
+                </div>
+                <div class="input-field col s12 ">
+                    <input id="txtDireccion1" type="text" v-model="nuevoCliente.Direccion" placeholder="Direccion">
+                    <label for="txtDireccion1">Direccion</label>
+                </div>
+                <div class="input-field col s6 ">
+                    <input id="txtCelular1" type="text" v-model="nuevoCliente.Celular" placeholder="Celular">
+                    <label for="txtCelular1">Celular</label>
+                </div>
+                <div class="input-field col s6 ">
+                    <input id="txtCorreo1" type="text" v-model="nuevoCliente.Correo" placeholder="Correo">
+                    <label for="txtCorreo1">Correo</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn">Nuevo Cliente</button>
+        </div>
+    </form>
+</div>
 
 
 
@@ -149,6 +185,7 @@
                 items: [],
                 numeroDoc: "",
                 cliente: "",
+                nuevoCliente: {},
                 ventas: [],                
             },
             mounted: function () {
@@ -269,9 +306,23 @@
                                                 this.venta.ClienteId = r.data;
                                             });
                                         this.cliente = r.data.ape_paterno + " " + r.data.ape_materno + " " + r.data.nombres;
-                                    }).catch(ex => { fn.mensaje("No existe DNI"); this.numeroDoc = ""; this.cliente="" });
+                                    }).catch(ex => {
+                                        this.nuevoCliente = { NumDocumento: this.numeroDoc };
+                                        fn.mensaje("No existe DNI"); this.numeroDoc = ""; this.cliente = "";
+                                        $('#modalCliente').modal('open');
+                                        $("#txtApellidos1").focus();
+                                    });
                             }
                         });
+                },
+                NuevoCliente: function () {
+                    axios.post('@Url.Action("NuevoCliente", "Venta")', { pCliente: this.nuevoCliente })
+                        .then((r) => {
+                            this.venta.ClienteId = r.data.Id;
+                            this.numeroDoc = r.data.NumDocumento;
+                            this.cliente = r.data.NombreCompleto;
+                            $('#modalCliente').modal('close');
+                        });                
                 }
             },
             computed: {
