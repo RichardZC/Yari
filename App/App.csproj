@@ -165,6 +165,14 @@
     <Content Include="js\materialize.min.js" />
     <Content Include="js\plugins.js" />
     <Content Include="js\scripts\advanced-ui-modals.js" />
+    <Content Include="vendors\jquery-3.2.1.min.js" />
+    <Content Include="vendors\jquery.autocomplete.min.js" />
+    <Content Include="vendors\jquery.numeric.js" />
+    <Content Include="vendors\moment.min.js" />
+    <Content Include="vendors\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="vendors\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="vendors\sweetalert2\sweetalert2.min.css" />
+    <Content Include="vendors\sweetalert2\sweetalert2.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -180,7 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="fonts\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
@@ -189,9 +196,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\material-design-icons\MaterialIcons-Regular.ttf" />
     <None Include="packages.config" />
     <Content Include="Views\Articulo\Index.cshtml" />
     <Content Include="Views\Venta\Comprobante.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Datos\Datos.csproj">
