@@ -39,6 +39,23 @@ namespace Web.Controllers
         {
             return Json(ArticuloBL.Listar(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult ListarTodoCodigo()
+        {
+            return Json(ArticuloBL.Listar().Select(x => new
+            {
+                x.Id,
+                x.CategoriaId,
+                x.MarcaId,
+                x.Codigo,
+                x.Nombre,
+                Denominacion =  x.Codigo  + x.Nombre,
+                x.Costo,
+                x.Venta,
+                x.Stock,
+                x.StockMin,
+                x.Activo
+            }), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult ListarMarca()
         {
             var m = MarcaBL.Obtener(x => x.Nombre == "GENERAL");

@@ -1,100 +1,102 @@
-﻿
-<div class="row">
-    <div class="col m6">
-        <div class="card ">
-            <div class="card-content ">
-                <div class="input-field  ">
-                    <i class="material-icons prefix">search</i>
-                    <input v-model="txtBuscar" type="text" id="txtBuscar" v-on:keyup.13="Buscar()" autocomplete="off" placeholder="Buscar Articulo">
-                    <label for="txtBuscar">Articulos</label>
+﻿    <div class="row">
+        <div class="col m6 noprint">
+            <div class="card ">
+                <div class="card-content ">
+                    <div class="input-field  ">
+                        <i class="material-icons prefix">search</i>
+                        <input v-model="search" type="search">
+                        <label for="txtCodigo">Buscar Articulo</label>
+                    </div>
+                    <table class="table bordered highlight responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Articulo</th>
+                                <th>Precio</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="i in filtrarArticulo">
+                                <td style="font-size:small;padding:0;margin:0">{{i.Codigo}}</td>
+                                <td style="font-size:small;padding:0;margin:0">{{i.Nombre}}</td>
+                                <td style="font-size:small;padding:0;margin:0">{{i.Venta }}</td>
+                                <td style="width:25px;padding:0;margin:0"><a href="#" v-on:click="Editar(i)"><i class="material-icons">edit</i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table bordered highlight responsive-table">
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Articulo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="i in articulos" :key="i.Id">
-                            <td style="font-size:small;padding:0;margin:0">{{i.Codigo}}</td>
-                            <td style="font-size:small;padding:0;margin:0">{{i.Nombre}}</td>
-                            <td style="width:25px;padding:0;margin:0"><a href="#" v-on:click="Editar(i)"><i class="material-icons">edit</i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
-    </div>
-    <div class="col m6">
-        <div class="center">
-            <br />
-            <button class="btn" v-on:click="Nuevo()">NUEVO ARTICULO</button>
-        </div>
-        <div class="card" v-if="mostrar">
-            <form v-on:submit.prevent="Guardar()">
-                <div class="card-content">
-                    <div class="input-field col m3 ">
-                        <i class="material-icons prefix">person</i>
-                        <input id="txtCodigo" v-model="articulo.Codigo" type="text" placeholder="Codigo">
-                        <label for="txtCodigo" class="active">Codigo</label>
-                    </div>
-                    <div class="input-field col m9">
-                        <input id="txtNombre" v-model="articulo.Nombre" type="text" required placeholder="Articulo">
-                        <label for="txtNombre" class="active">Articulo</label>
-                    </div>
-                    <div class="input-field col m3 ">
-                        <i class="material-icons prefix">vpn_key</i>
-                        <input id="txtCosto" v-model="articulo.Costo" type="text" required placeholder="Costo">
-                        <label for="txtCosto" class="active">Costo</label>
-                    </div>
-                    <div class="input-field col m3 ">
-                        <input id="txtVenta" v-model="articulo.Venta" type="text" placeholder="Venta">
-                        <label for="txtVenta" class="active">Venta</label>
-                    </div>
-                    <div class="input-field col m3 ">
-                        <input id="txtStock" v-model="articulo.Stock" type="text" placeholder="Stock">
-                        <label for="txtStock" class="active">Stock</label>
-                    </div>
-                    <div class="input-field col m3 ">
-                        <input id="txtStockMin" v-model="articulo.StockMin" type="text" placeholder="Stock Minimo">
-                        <label for="txtStockMin" class="active">Stock Minimo</label>
-                    </div>
-                    <div class="input-field col m6 ">
-                        <label class="active">Marca</label>
-                        <a class="btn-flat waves-effect" v-on:click="ListarMarca()" style="width:100%">
-                            <i class="material-icons right">search</i> {{ articulo.NombreMarca }}
-                        </a>
-                    </div>
-                    <div class="input-field col m6 ">
-                        <label class="active">Categoria</label>
-                        <a class="btn-flat waves-effect" v-on:click="ListarCategoria()" style="width:100%">
-                            <i class="material-icons right">search</i> {{ articulo.NombreCategoria }}
-                        </a>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 m6">
-                            <input type="checkbox" v-model="articulo.Activo" class="filled-in" id="filled-in-box" checked="checked" />
-                            <label for="filled-in-box">Activo</label>
-                        </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col m12 center">
-                            <br />
-                            <hr />
-                            <br />
-                            <button class="btn " v-on:click="mostrar=false">CANCELAR</button>
-                            <input type="submit" class="btn" value="Guardar" />
+        <div class="col m6">
+            <div class="center">
+                <br />
+                <button class="btn" v-on:click="Nuevo()">NUEVO ARTICULO</button>
+            </div>
+            <div class="card" v-if="mostrar">
+                <form v-on:submit.prevent="Guardar()">
+                    <div class="card-content">
+                        <div class="input-field col m4 ">
+                            <i class="material-icons prefix">person</i>
+                            <input id="txtCodigo" v-model="articulo.Codigo" type="text" placeholder="Codigo">
+                            <label for="txtCodigo" class="active">Codigo</label>
+                        </div>
+                        <div class="input-field col m8">
+                            <input id="txtNombre" v-model="articulo.Nombre" type="text" required placeholder="Articulo">
+                            <label for="txtNombre" class="active">Articulo</label>
+                        </div>
+                        <div class="input-field col m3 ">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input id="txtCosto" v-model="articulo.Costo" type="text" required placeholder="Costo">
+                            <label for="txtCosto" class="active">Costo</label>
+                        </div>
+                        <div class="input-field col m3 ">
+                            <input id="txtVenta" v-model="articulo.Venta" type="text" placeholder="Venta">
+                            <label for="txtVenta" class="active">Venta</label>
+                        </div>
+                        <div class="input-field col m3 ">
+                            <input id="txtStock" v-model="articulo.Stock" type="text" placeholder="Stock">
+                            <label for="txtStock" class="active">Stock</label>
+                        </div>
+                        <div class="input-field col m3 ">
+                            <input id="txtStockMin" v-model="articulo.StockMin" type="text" placeholder="Stock Minimo">
+                            <label for="txtStockMin" class="active">Stock Minimo</label>
+                        </div>
+                        <div class="input-field col m6 ">
+                            <label class="active">Marca</label>
+                            <a class="btn-flat waves-effect" v-on:click="ListarMarca()" style="width:100%">
+                                <i class="material-icons right">search</i> {{ articulo.NombreMarca }}
+                            </a>
+                        </div>
+                        <div class="input-field col m6 ">
+                            <label class="active">Categoria</label>
+                            <a class="btn-flat waves-effect" v-on:click="ListarCategoria()" style="width:100%">
+                                <i class="material-icons right">search</i> {{ articulo.NombreCategoria }}
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <input type="checkbox" v-model="articulo.Activo" class="filled-in" id="filled-in-box" checked="checked" />
+                                <label for="filled-in-box">Activo</label>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col m12 center">
+                                <br />
+                                <hr />
+                                <br />
+                                <input type="submit" class="btn" value="Guardar" />
+                                <input type="submit" class="btn" v-on:click="mostrar=false" value="CANCELAR" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
         </div>
-       
     </div>
-</div>
 <div id="modalMarca" class="modal modal-fixed-footer">
     <div class="modal-content">
         <table class="table bordered highlight responsive-table">
@@ -156,14 +158,20 @@
                 txtBuscar: "",
                 articulos: [],
                 articulo: {},
+                
                 editar: false,
                 mostrar: false,
                 marcas: [],
                 categorias: [],
                 marcaGeneral: {},
-                categoriaGeneral: {}
+                categoriaGeneral: {},
+                search: ''
             },
             created: function () {
+                axios.get('@Url.Action("ListarTodoCodigo", "Articulo")' , {})
+                    .then(r => {
+                        this.articulos = r.data;
+                    });
                 axios.get('@Url.Action("ListarMarca", "Articulo")/', {})
                     .then(r => {
                         this.marcas = r.data;
@@ -186,13 +194,13 @@
                     });
             },
             methods: {
-                Buscar: function () {
+                @*Buscar: function () {
                     if (this.txtBuscar.trim().length == 0) return;
                     axios.get('@Url.Action("Buscar", "Articulo")/' + this.txtBuscar.trim(), {})
                         .then(r => {
                             this.articulos = r.data;
                         });
-                },
+                },*@
                 Nuevo: function () {
                     this.articulo = {
                         Activo: true, Costo: 0, Venta: 0, Stock: 0, StockMin: 0,
@@ -205,15 +213,38 @@
                     this.mostrar = true;
                 },
                 Editar: function (al) {
+                   
                     this.articulo = Object.assign({}, al);                                     
                     this.editar = true;
                     this.mostrar = true;
                 },
-                Guardar: function () {
+                Guardar: function () {                    
                     axios.post('@Url.Action("Guardar", "Articulo")', { pArticulo: this.articulo })
                         .then((r) => {
                             fn.mensaje("Articulo Guardado!");
                             this.mostrar = false;
+                            this.articulo.Nombre = this.articulo.Nombre.toUpperCase();
+                            this.articulo.Denominacion = this.articulo.Codigo + this.articulo.Nombre;
+
+                            var found = false;
+                            this.articulos.forEach(item => {
+                                if (item.Id === this.articulo.Id) {
+                                    found = true;                                       
+                                    item.Codigo = this.articulo.Codigo;
+                                    item.CategoriaId = this.articulo.CategoriaId;
+                                    item.MarcaId = this.articulo.MarcaId;
+                                    item.Costo = this.articulo.Costo;
+                                    item.Denominacion = this.articulo.Denominacion;
+                                    item.Nombre = this.articulo.Nombre;
+                                    item.Venta = this.articulo.Venta;
+                                    item.Stock = this.articulo.Stock;
+                                    item.StockMin = this.articulo.StockMin;
+                                    item.Activo = this.articulo.Activo;
+                                }
+                            });
+                            if (found === false) { 
+                                this.articulos.push(this.articulo); 
+                            }
                         });
                 },              
                 ListarMarca: function () {   
@@ -275,195 +306,45 @@
                     }
                 },
             },
-
+        computed: {
+                Total: function () {
+                    var total = 0;
+                    this.items.forEach(item => {
+                        total += (item.Precio * item.Cantidad);
+                    });
+                    return total;
+                },
+                filtrarArticulo: function () {
+                    return this.articulos.filter((a) => {
+                        if (this.searchArray.length == 1) {
+                            return a.Denominacion.match(this.searchArray[0])
+                        } else if (this.searchArray.length == 2) {
+                            return (a.Denominacion.match(this.searchArray[0])
+                                && a.Denominacion.match(this.searchArray[1]))
+                        } else if (this.searchArray.length == 3) {
+                            return (a.Denominacion.match(this.searchArray[0])
+                                && a.Denominacion.match(this.searchArray[1])
+                                && a.Denominacion.match(this.searchArray[2]))
+                        } else if (this.searchArray.length == 4) {
+                            return (a.Denominacion.match(this.searchArray[0])
+                                && a.Denominacion.match(this.searchArray[1])
+                                && a.Denominacion.match(this.searchArray[2])
+                                && a.Denominacion.match(this.searchArray[3]))
+                        }
+                    });
+                },
+                searchArray: function () {
+                    return this.search.toUpperCase().trim().split(' ');
+                }
+            },
+            filters: {
+                Fecha: function (date) {
+                    return moment(date).format('DD/MM/YYYY h:mm:ss a');
+                },
+                Numero: function (n) {
+                    return n.toFixed(2);
+                }
+            },
         });
     </script>
 }
-
-
-
-@*<div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-action">
-                    <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">search</i>
-                        <input id="txtBuscar" type="text" v-model="txtBuscar" v-on:keyup.enter="Buscar()" >
-                        <label for="txtBuscar" class="">Buscar por Denominación y Código</label>
-                    </div>
-                    <div class="col s12 m6">
-                        <button v-on:click="Editar()" class="btn blue waves-effect waves-light right" type="button" name="action">
-                            NUEVO
-                            <i class="material-icons right">add</i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <table class="table bordered Highlight responsive-table">
-                        <thead>
-                            <tr>
-                                <th>Accion</th>
-                                <th>Código</th>
-                                <th>Denominación</th>
-                                <th>Precio</th>
-                                <th>Stock</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="i in items">
-                                <td><a href="#" v-on:click="Editar(i)"><i class="material-icons">edit</i></a></td>
-                                <td>{{i.Codigo}}</td>
-                                <td>{{i.Nombre}}</td>
-                                <td>{{i.Venta | Numero }}</td>
-                                <td>{{i.Stock | Numero }}</td>
-                                <td class="left" v-if="i.Activo">
-                                    <span class="new badge blue" data-badge-caption="Activo"></span>
-                                </td>
-                                <td class="left" v-else><span class="new badge red" data-badge-caption="Inactivo"></span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="modalEditar" class="modal">
-        <div class="modal-content">
-            <div class="row">
-                <div class="input-field col s12 m3">
-                    <input id="txtCodigo" type="text" v-model="item.Codigo" placeholder="Codigo" >
-                    <label for="txtCodigo">Código</label>
-                </div>
-                <div class="input-field col s12 m9">
-                    <input id="txtNombre" type="text" v-model="item.Nombre" placeholder="Articulo"
-                           v-on:input="item.Nombre=$event.target.value.toUpperCase()">
-                    <label for="txtNombre" class="active">Articulo</label>
-                </div>
-                <div class=" col s12 m6">
-                    <label>Categoria</label>
-                    <select class="browser-default" v-model="item.CategoriaId">
-                        <option v-for="o in categorias" v-bind:value="o.Id">
-                            {{ o.Nombre}}
-                        </option>
-                    </select>
-                </div>
-                <div class=" col s12 m6">
-                    <label>Marca</label>
-                    <select class="browser-default" v-model="item.MarcaId">
-                        <option v-for="o in marcas" v-bind:value="o.Id">
-                            {{ o.Nombre}}
-                        </option>
-                    </select>
-                </div>
-                <div class="input-field col s12 m3">
-                    <input id="txtCosto" type="text" v-model="item.Costo" placeholder="Costo">
-                    <label for="txtCosto" class="active">Precio Costo</label>
-                </div>
-                <div class="input-field col s12 m3">
-                    <input id="txtVenta" type="text" v-model="item.Venta" placeholder="Venta">
-                    <label for="txtVenta" class="active">Precio Venta</label>
-                </div>
-                <div class="input-field col s12 m3">
-                    <input id="txtStockMin" type="text" v-model="item.StockMin" placeholder="Stock Mínimo">
-                    <label for="txtStockMin" class="active">Stock Mínimo</label>
-                </div>
-                <div class="input-field col s12 m3">
-                    <input id="txtStock" type="text" v-model="item.Stock" placeholder="Stock ">
-                    <label for="txtStock" class="active">Stock </label>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col s12 m6">
-                    <input type="checkbox" v-model="item.Activo" class="filled-in" id="filled-in-box" checked="checked" />
-                    <label for="filled-in-box">Activo</label>
-                </div>
-                <div class="col s12 m6">
-                    <a class="waves-effect waves-light blue  btn right" v-on:click="Guardar()">
-                        <i class="mdi-action-done"></i>Guardar
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    @section scripts{
-        <script>
-            $(function () {
-                $("#txtStock").numeric({ decimal: false, negative: false });
-                $("#txtStockMin").numeric({ decimal: false, negative: false });
-                $("#txtCosto").numeric({ decimalPlaces: 2 });
-                $("#txtVenta").numeric({ decimalPlaces: 2 });
-
-            });
-            var vapp = new Vue({
-                el: '#content',
-                data: {
-                    item: {},
-                    itemSel: {},
-                    items: [],
-                    txtBuscar: "",
-                    categorias: [],
-                    marcas: [],
-                },
-                created: function () {
-                    this.Buscar();
-                    axios.get('@Url.Action("ListarCategoria", "Comun")', {})
-                        .then(r => { this.categorias = r.data } );
-                    axios.get('@Url.Action("ListarMarca", "Comun")', {})
-                        .then(r => { this.marcas = r.data  });
-                },
-                methods: {
-                    Guardar: function () {
-                        axios.post('@Url.Action("Guardar", "Articulo")', { pArticulo: this.item })
-                            .then((r) => {
-                                if (this.itemSel) {
-                                    this.itemSel.Nombre = this.item.Nombre;
-                                    this.itemSel.Codigo = this.item.Codigo;
-                                    this.itemSel.Costo = Number(this.item.Costo);
-                                    this.itemSel.Venta = Number(this.item.Venta);
-                                    this.itemSel.Stock = parseInt(this.item.Stock);
-                                    this.itemSel.StockMin = parseInt(this.item.StockMin);
-                                    this.itemSel.Activo = this.item.Activo;
-                                    this.itemSel.CategoriaId = this.item.CategoriaId;
-                                    this.itemSel.MarcaId = this.item.MarcaId;
-                                } else {
-                                    this.item.Id = r.data;
-                                    console.log(this.item);
-                                    this.items.push(this.item);
-                                }
-                                $('#modalEditar').modal('close');
-                            });
-                    },
-                    Editar: function (articulo) {
-                        if (articulo == null) {
-                            this.item = {
-                                Id: 0, Venta: 0, Costo: 0, Stock: 1, StockMin: 1, Activo: true,
-                                Codigo:'',Nombre:'',CategoriaId: 1, MarcaId:1
-                            };
-                        }
-                        else
-                            this.item = Object.assign({}, articulo);
-
-                        this.itemSel = articulo;
-                        $('#modalEditar').modal('open');
-                        $('#txtCodigo').focus();
-                    },
-                    Buscar: function () {
-                        axios.get('@Url.Action("Listar", "Articulo")', { params: { nombre: this.txtBuscar } })
-                            .then(r => this.items = r.data);
-                    }
-                },
-                filters: {
-                    Fecha: function (date) {
-                        return moment(date).format('DD/MM/YYYY h:mm:ss a');
-                    },
-                    Numero: function (n) {
-                        return n.toFixed(2);
-                    }
-                }
-            })
-        </script>
-    }*@
